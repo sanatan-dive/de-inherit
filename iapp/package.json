@@ -1,0 +1,15 @@
+{
+  "name": "de-inherit-iapp",
+  "version": "1.0.0",
+  "description": "De-Inherit iApp - Dead man's switch for digital inheritance",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Use iapp test to test locally\""
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "author": "De-Inherit Team",
+  "license": "MIT"
+}

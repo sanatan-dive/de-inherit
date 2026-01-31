@@ -1,0 +1,43 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserVault {
+  id                   String   @id @default(uuid())
+  walletAddress        String   @unique
+  protectedDataAddress String   // iExec Protected Data address
+  heirEmail            String   // Encrypted for privacy
+  lastHeartbeat        DateTime @default(now())
+  thresholdDays        Int      @default(30)
+  isReleased           Boolean  @default(false)
+  
+  // Ghost Mode feature
+  ghostModeEnabled     Boolean  @default(false)
+  lastOnChainActivity  DateTime?
+  
+  // Multi-Sig Guardians feature
+  guardianAddresses    String[] @default([])
+  requiredApprovals    Int      @default(0)
+  
+  // Video Last Words feature
+  videoIpfsHash        String?
+  
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model GuardianApproval {
+  id              String   @id @default(uuid())
+  vaultId         String
+  guardianAddress String
+  approved        Boolean  @default(false)
+  approvedAt      DateTime?
+  createdAt       DateTime @default(now())
+  
+  @@unique([vaultId, guardianAddress])
+}

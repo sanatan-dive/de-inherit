@@ -1,0 +1,11 @@
+{
+  "description": "De-Inherit Reaper App",
+  "app": {
+    "owner": "0x9b1ad9199E1a97aC35d5e3F4CB0Fca8f9062D247",
+    "name": "de-inherit-reaper",
+    "type": "DOCKER",
+    "multiaddr": "docker.io/sanatansharma/de-inherit-reaper:1.0.0",
+    "checksum": "0x4d07270e51532f311df98293967406692823a31c5195304620022416b9d6289b",
+    "mrenclave": ""
+  }
+}

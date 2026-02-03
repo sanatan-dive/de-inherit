@@ -50,11 +50,18 @@ export function useDataProtector() {
 
     // If we have an iApp address, grant it access
     if (IAPP_ADDRESS && IAPP_ADDRESS !== '0x0000000000000000000000000000000000000000') {
-      await dataProtectorCore.grantAccess({
-        protectedData: protectedData.address,
-        authorizedApp: IAPP_ADDRESS,
-        authorizedUser: '0x0000000000000000000000000000000000000000', // Any user (for the iApp to read)
-      })
+      const isAddress = /^0x[a-fA-F0-9]{40}$/i.test(IAPP_ADDRESS)
+      const isENS = IAPP_ADDRESS.includes('.')
+
+      if (isAddress || isENS) {
+        await dataProtectorCore.grantAccess({
+          protectedData: protectedData.address,
+          authorizedApp: IAPP_ADDRESS,
+          authorizedUser: '0x0000000000000000000000000000000000000000', // Any user (for the iApp to read)
+        })
+      } else {
+        console.warn('Skipping access grant: IAPP_ADDRESS is not a valid address or ENS', IAPP_ADDRESS)
+      }
     }
 
     return {
